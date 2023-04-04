@@ -4,7 +4,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import IconButton, { IconButtonProps } from '@mui/material/IconButton';
 
-const CardMenu = ({ onCardSelect }) => {
+const CardMenu = ({ children }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (e) => {
@@ -46,7 +46,7 @@ const CardMenu = ({ onCardSelect }) => {
           },
         }}
       >
-        <MenuItem onClick={onCardSelect}>Select</MenuItem>
+        {children}
       </Menu>
     </>
   );

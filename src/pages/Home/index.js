@@ -3,15 +3,19 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { MovieCard } from '../../components';
+import { MovieCard, MovieCardSelected } from '../../components';
 import { useQuery } from '@apollo/client';
 import { MOVIES_QUERY } from './queries';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import { useMovies } from '../../hooks/useMovies';
 
 const Home = () => {
   const [page, setPage] = useState(1);
-  const { loading, error, data } = useQuery(MOVIES_QUERY, {variables: {page}});
+  const { loading, error, data } = useQuery(MOVIES_QUERY, {
+    variables: { page },
+  });
+  const { selectedMovies, selectMovie, deleteMovie } = useMovies();
 
   if (error) {
     return 'Error';
@@ -45,7 +49,7 @@ const Home = () => {
                 <Grid container spacing={2}>
                   {data.movies.results.map((movie) => (
                     <Grid item key={movie.id} xs={12} sm={6} md={4} lg={3}>
-                      <MovieCard movie={movie} />
+                      <MovieCard movie={movie} onCardSelect={selectMovie} />
                     </Grid>
                   ))}
                 </Grid>
@@ -54,7 +58,15 @@ const Home = () => {
           </Paper>
         </Grid>
         <Grid item xs={12} md={4}>
-          <SelectedMovies>Selected movies</SelectedMovies>
+          <SelectedMovies>
+            {selectedMovies.map((movie) => (
+              <MovieCardSelected
+                key={movie.id}
+                movie={movie}
+                onCardDelete={deleteMovie}
+              />
+            ))}
+          </SelectedMovies>
         </Grid>
       </Grid>
       <Stack spacing={2}>

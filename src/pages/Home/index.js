@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import { MovieCard, MovieCardSelected } from '../../components';
+import { MovieCard, SelectedMoviesSection } from '../../components';
 import { useQuery } from '@apollo/client';
 import { MOVIES_QUERY } from './queries';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useMovies } from '../../hooks/useMovies';
+import Typography from '@mui/material/Typography';
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -25,16 +25,6 @@ const Home = () => {
     setPage(p);
   };
 
-  const SelectedMovies = styled(Paper)(({ theme }) => ({
-    backgroundColor: '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    color: theme.palette.text.secondary,
-    height: 'calc(100vh - 140px)',
-    position: 'sticky',
-    top: theme.spacing(2),
-  }));
-
   return (
     <Box sx={{ flexGrow: 1, paddingTop: 3 }}>
       <Grid container spacing={2}>
@@ -43,7 +33,7 @@ const Home = () => {
         </Grid>
         <Grid item xs={12} md={8}>
           <Paper>
-            <Box sx={{ flexGrow: 1, padding: 1 }}>
+            <Box sx={{ flexGrow: 1, padding: 4 }}>
               {loading && 'Loading...'}
               {data && (
                 <Grid container spacing={2}>
@@ -57,22 +47,27 @@ const Home = () => {
             </Box>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <SelectedMovies>
-            {selectedMovies.map((movie) => (
-              <MovieCardSelected
-                key={movie.id}
-                movie={movie}
-                onCardDelete={deleteMovie}
-              />
-            ))}
-          </SelectedMovies>
+        <Grid
+          item
+          xs={12}
+          md={4}
+          sx={{
+            marginTop: 2,
+          }}
+        >
+          <Typography variant="h5" gutterBottom component="div">
+            Selected movies
+          </Typography>
+          <SelectedMoviesSection
+            selectedMovies={selectedMovies}
+            deleteMovie={deleteMovie}
+          />
         </Grid>
       </Grid>
       <Stack spacing={2}>
         <Pagination
           sx={{ padding: 2, margin: '0 auto' }}
-          count={data?.movies?.totalPages}
+          count={500}
           color="secondary"
           size="large"
           page={page}

@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
+import {MAX_SELECTED_MOVIES} from '../../const';
 
-const MAX_SELECTED_MOVIES = 10;
 
 export const useMovies = () => {
   const [selectedMovies, setSelectedMovies] = useState([]);

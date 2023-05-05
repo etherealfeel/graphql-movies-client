@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext, useCallback } from 'react';
 import {
   List,
   ListItem,
@@ -18,9 +18,20 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Link as RouterLink } from 'react-router-dom';
+import { AppContext } from '../../context/appContext';
+import { LOCALES } from '../../const';
 
 const Navigation = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const { state, dispatch } = useContext(AppContext);
+
+  const setLanguage = useCallback((locale) => {
+    dispatch({
+      type: 'setLocale',
+      locale,
+    });
+  }, []);
+
   const list = () => (
     <Box sx={{ width: 250 }} role="presentation">
       <List>
@@ -37,8 +48,11 @@ const Navigation = () => {
     </Box>
   );
   return (
-    <Box sx={{ flexGrow: 1}}>
-      <AppBar position="static" sx={{ backgroundColor: (theme) => theme.palette.grey[900]}}>
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar
+        position="static"
+        sx={{ backgroundColor: (theme) => theme.palette.grey[900] }}
+      >
         <Toolbar>
           <IconButton
             size="large"
@@ -59,6 +73,24 @@ const Navigation = () => {
               Movies REC
             </Typography>
           </Link>
+
+          <Box sx={{ p: 1, border: '1px solid white', borderRadius: '5px', display: 'flex', alignItems: 'center', gap: 1, backgroundColor: '#4a4a4a'}}>
+            {state.locale}
+            <Divider orientation="vertical" variant="middle" flexItem/>
+            <Button
+              disabled={state.locale === LOCALES.ENGLISH}
+              onClick={() => setLanguage(LOCALES.ENGLISH)}
+            >
+              ENG
+            </Button>
+            <Divider orientation="vertical" variant="middle" flexItem/>
+            <Button
+              disabled={state.locale === LOCALES.UKRAINIAN}
+              onClick={() => setLanguage(LOCALES.UKRAINIAN)}
+            >
+              УКР
+            </Button>
+          </Box>
 
           <Box sx={{ display: { xs: 'none', lg: 'flex' } }}>
             <Button

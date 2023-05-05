@@ -26,7 +26,7 @@ const PlusIcon = styled(Box)(({ theme }) => ({
   },
 }));
 
-const MovieCard = ({ movie, onCardSelect }) => {
+const MovieCard = ({ movie, onCardSelect, minimized = false }) => {
   return (
     <Card sx={{ maxWidth: 200, position: 'relative' }}>
       <CardMenu>
@@ -43,13 +43,17 @@ const MovieCard = ({ movie, onCardSelect }) => {
           image={movie.image}
           alt={movie.title}
         />
-        <PlusIcon onClick = {() => onCardSelect(movie)}>
-          <AddIcon sx={{fontSize: 40}}/>
-        </PlusIcon>
+        {!minimized && (
+          <PlusIcon onClick={() => onCardSelect(movie)}>
+            <AddIcon sx={{ fontSize: 40 }} />
+          </PlusIcon>
+        )}
       </Box>
       <CardContent>
         <Typography variant="h5" gutterBottom component="div">
-          {movie.title.length >= 15 ? movie.title.slice(0, 14) + '...': movie.title}
+          {movie.title.length >= 15
+            ? movie.title.slice(0, 14) + '...'
+            : movie.title}
         </Typography>
         <Typography variant="subtitle1" gutterBottom component="div">
           {movie.releaseDate}
@@ -66,6 +70,7 @@ MovieCard.propTypes = {
     releaseDate: PropTypes.string,
   }).isRequired,
   onCardSelect: PropTypes.func,
+  minimized: PropTypes.bool,
 };
 
 export default MovieCard;

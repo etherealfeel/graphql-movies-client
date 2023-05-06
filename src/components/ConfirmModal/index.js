@@ -14,6 +14,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Alert from '@mui/material/Alert';
 import { styled } from '@mui/material/styles';
+import { FormattedMessage } from "react-intl";
 // import { SOCIAL_ICON_SIZE } from "../../const";
 import ForwardToInboxIcon from '@mui/icons-material/ForwardToInbox';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -137,11 +138,11 @@ const ConfirmModal = ({ open, url, title, onClose }) => {
             }
             sx={{ mb: 2 }}
           >
-            URL saved.
+            <FormattedMessage id="copied"/>
           </Alert>
         ) : null}
         <Typography id="modal-modal-title" variant="h6" component="h2">
-          Share with friends
+          <FormattedMessage id="share_with_friends"/>
         </Typography>
         <ShareSocial />
       </Box>

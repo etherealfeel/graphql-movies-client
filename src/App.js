@@ -9,9 +9,10 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  from
+  from,
 } from '@apollo/client';
-import { AppContext } from './context/appContext';
+import { AppContext } from './providers/appContext';
+import I18nProvider from './providers/i18n';
 
 function App() {
   const { state } = useContext(AppContext);
@@ -35,23 +36,26 @@ function App() {
     connectToDevTools: true,
   });
   return (
-    <ApolloProvider client={client}>
-      <CssBaseline />
-      <Navigation />
-      <Box
-        sx={{
-          backgroundColor: (theme) => theme.palette.grey[200],
-        }}
-      >
-        <Container maxWidth="xl">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="settings" element={<Settings />} />
-            <Route path="recommend" element={<Recommend />} />
-          </Routes>
-        </Container>
-      </Box>
-    </ApolloProvider>
+    <I18nProvider locale={state.locale}>
+      <ApolloProvider client={client}>
+        <CssBaseline />
+        <Navigation />
+        
+        <Box
+          sx={{
+            backgroundColor: (theme) => theme.palette.grey[200],
+          }}
+        >
+          <Container maxWidth="xl">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="settings" element={<Settings />} />
+              <Route path="recommend" element={<Recommend />} />
+            </Routes>
+          </Container>
+        </Box>
+      </ApolloProvider>
+    </I18nProvider>
   );
 }
 

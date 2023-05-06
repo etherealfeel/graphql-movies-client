@@ -9,6 +9,7 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import { useMovies } from '../../hooks/useMovies';
 import Typography from '@mui/material/Typography';
+import { FormattedMessage } from 'react-intl';
 
 const Home = () => {
   const [page, setPage] = useState(1);
@@ -56,7 +57,7 @@ const Home = () => {
           }}
         >
           <Typography variant="h5" gutterBottom component="div">
-            Selected movies
+            <FormattedMessage id="selected_movies"/>
           </Typography>
           <SelectedMoviesSection
             selectedMovies={selectedMovies}

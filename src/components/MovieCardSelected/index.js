@@ -7,17 +7,25 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import CardMenu from '../CardMenu';
 import MenuItem from '@mui/material/MenuItem';
+import { FormattedMessage } from 'react-intl';
 
 const MovieCardSelected = ({ movie, onCardDelete }) => {
   return (
-    <Card sx={{ display: 'flex', minHeight: '164px'}}>
+    <Card sx={{ display: 'flex', minHeight: '164px' }}>
       <CardMedia
         component="img"
         sx={{ width: 100 }}
         image={movie.image}
         alt="Live from space album cover"
       />
-      <Box sx={{ position: 'relative', width: '100%', display: 'flex', flexDirection: 'column' }}>
+      <Box
+        sx={{
+          position: 'relative',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <CardContent sx={{ flex: '1 0 auto' }}>
           <Typography component="div" variant="h5">
             {movie.title}
@@ -49,7 +57,9 @@ const MovieCardSelected = ({ movie, onCardDelete }) => {
           </Typography>
         </Box>
         <CardMenu>
-          <MenuItem onClick={() => onCardDelete(movie)}>Delete</MenuItem>
+          <MenuItem onClick={() => onCardDelete(movie)}>
+            <FormattedMessage id="delete" />
+          </MenuItem>
         </CardMenu>
       </Box>
     </Card>

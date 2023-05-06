@@ -18,8 +18,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { Link as RouterLink } from 'react-router-dom';
-import { AppContext } from '../../context/appContext';
+import { FormattedMessage } from 'react-intl';
+import { AppContext } from '../../providers/appContext';
 import { LOCALES } from '../../const';
+import translate from '../../utils/translate';
 
 const Navigation = () => {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -40,7 +42,7 @@ const Navigation = () => {
             <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
-            <ListItemText primary="Settings" />
+            <ListItemText primary={translate('navigation.settings')} />
           </ListItemButton>
         </ListItem>
       </List>
@@ -70,20 +72,30 @@ const Navigation = () => {
               component="div"
               sx={{ flexGrow: 1, color: 'white' }}
             >
-              Movies REC
+              <FormattedMessage id="navigation.home" />
             </Typography>
           </Link>
 
-          <Box sx={{ p: 1, border: '1px solid white', borderRadius: '5px', display: 'flex', alignItems: 'center', gap: 1, backgroundColor: '#4a4a4a'}}>
+          <Box
+            sx={{
+              p: 1,
+              border: '1px solid white',
+              borderRadius: '5px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              backgroundColor: '#4a4a4a',
+            }}
+          >
             {state.locale}
-            <Divider orientation="vertical" variant="middle" flexItem/>
+            <Divider orientation="vertical" variant="middle" flexItem />
             <Button
               disabled={state.locale === LOCALES.ENGLISH}
               onClick={() => setLanguage(LOCALES.ENGLISH)}
             >
               ENG
             </Button>
-            <Divider orientation="vertical" variant="middle" flexItem/>
+            <Divider orientation="vertical" variant="middle" flexItem />
             <Button
               disabled={state.locale === LOCALES.UKRAINIAN}
               onClick={() => setLanguage(LOCALES.UKRAINIAN)}
@@ -98,7 +110,7 @@ const Navigation = () => {
               component={RouterLink}
               sx={{ my: 2, color: 'white', display: 'block' }}
             >
-              Settings
+              <FormattedMessage id="navigation.settings" />
             </Button>
           </Box>
         </Toolbar>

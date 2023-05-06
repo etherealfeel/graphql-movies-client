@@ -5,6 +5,7 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ShareIcon from '@mui/icons-material/Share';
 import { Form, Field } from 'react-final-form';
+import { FormattedMessage } from 'react-intl';
 
 const SelectedMoviesForm = ({ onSubmit }) => {
   return (
@@ -23,15 +24,16 @@ const SelectedMoviesForm = ({ onSubmit }) => {
             <Field
               name="listName"
               render={({ input, meta }) => (
-                <>
-                  <InputBase
-                    sx={{ ml: 1, flex: 1 }}
-                    placeholder="Give this list a name..."
-                    inputProps={{ 'aria-label': 'give list a name' }}
-                    {...input}
-                  />
-                  {meta.error && meta.touched && <span>{meta.error}</span>}
-                </>
+                <FormattedMessage id="put_the_list_name">
+                  {(placeholder) => (
+                    <InputBase
+                      sx={{ ml: 1, flex: 1 }}
+                      placeholder={placeholder}
+                      inputProps={{ 'aria-label': 'put list name' }}
+                      {...input}
+                    />
+                  )}
+                </FormattedMessage>
               )}
             />
 

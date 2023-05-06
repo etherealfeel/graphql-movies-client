@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import MenuItem from '@mui/material/MenuItem';
 import CardMenu from '../CardMenu';
 import AddIcon from '@mui/icons-material/Add';
+import { FormattedMessage } from 'react-intl';
 import { styled } from '@mui/material/styles';
 
 const PlusIcon = styled(Box)(({ theme }) => ({
@@ -30,7 +31,9 @@ const MovieCard = ({ movie, onCardSelect, minimized = false }) => {
   return (
     <Card sx={{ maxWidth: 200, position: 'relative' }}>
       <CardMenu>
-        <MenuItem onClick={() => onCardSelect(movie)}>Select</MenuItem>
+        <MenuItem onClick={() => onCardSelect(movie)}>
+          <FormattedMessage id="select" />
+        </MenuItem>
       </CardMenu>
       <Box
         sx={{
@@ -51,9 +54,10 @@ const MovieCard = ({ movie, onCardSelect, minimized = false }) => {
       </Box>
       <CardContent>
         <Typography variant="h5" gutterBottom component="div">
-          {movie.title.length >= 15
+          {/* {movie.title.length >= 15
             ? movie.title.slice(0, 14) + '...'
-            : movie.title}
+            : movie.title} */}
+            
         </Typography>
         <Typography variant="subtitle1" gutterBottom component="div">
           {movie.releaseDate}

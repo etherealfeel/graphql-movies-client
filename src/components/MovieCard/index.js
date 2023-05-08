@@ -57,7 +57,7 @@ const MovieCard = ({ movie, onCardSelect, minimized = false }) => {
           {/* {movie.title.length >= 15
             ? movie.title.slice(0, 14) + '...'
             : movie.title} */}
-            
+            {movie.title}
         </Typography>
         <Typography variant="subtitle1" gutterBottom component="div">
           {movie.releaseDate}

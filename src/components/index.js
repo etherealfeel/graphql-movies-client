@@ -11,5 +11,5 @@ export {
     MovieCardSelected,
     SelectedMoviesForm,
     SelectedMoviesSection,
-    ConfirmModal
+    ConfirmModal,
 }

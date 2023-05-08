@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -10,17 +9,24 @@ import Stack from '@mui/material/Stack';
 import { useMovies } from '../../hooks/useMovies';
 import Typography from '@mui/material/Typography';
 import { FormattedMessage } from 'react-intl';
+import { FilterForm } from '../../components/FilterForm';
+import { useFilters } from './../../hooks/useFilters';
 
 const Home = () => {
-  const [page, setPage] = useState(1);
+  const { filter, setPage, setFilter } = useFilters();
   const { loading, error, data } = useQuery(MOVIES_QUERY, {
-    variables: { page },
+    variables: { filter },
   });
   const { selectedMovies, selectMovie, deleteMovie } = useMovies();
 
   if (error) {
     return 'Error';
   }
+
+  const onSubmit = (data) => {
+    console.log(data);
+    setFilter(data);
+  };
 
   const handleChange = (e, p) => {
     setPage(p);
@@ -30,7 +36,9 @@ const Home = () => {
     <Box sx={{ flexGrow: 1, paddingTop: 3 }}>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Paper>Filters</Paper>
+          <Paper sx={{ padding: '16px' }}>
+            <FilterForm onSubmit={onSubmit} initialValues={filter} />
+          </Paper>
         </Grid>
         <Grid item xs={12} md={8}>
           <Paper>
@@ -57,7 +65,7 @@ const Home = () => {
           }}
         >
           <Typography variant="h5" gutterBottom component="div">
-            <FormattedMessage id="selected_movies"/>
+            <FormattedMessage id="selected_movies" />
           </Typography>
           <SelectedMoviesSection
             selectedMovies={selectedMovies}
@@ -71,7 +79,7 @@ const Home = () => {
           count={500}
           color="secondary"
           size="large"
-          page={page}
+          page={filter.page}
           onChange={handleChange}
         />
       </Stack>
